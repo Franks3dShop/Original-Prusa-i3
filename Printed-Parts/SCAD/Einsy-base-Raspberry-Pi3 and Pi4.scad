@@ -9,7 +9,7 @@
 //Chose the Raspberry Pi model, either 3 or 4 or 0 for the orginal Raspberry Pi Zero cut out.
 RaspberryType = 3; // 3 for Pi3 or 4 for Pi4 for the ports holes.
 
-DownOffset = 5; // To adjust in mm where the downward offset of the Raspberry Pi 3/4
+DownOffset = 5; // To adjust in mm where the downward offset of the Raspberry Pi 3/4 (5mm for original Prusa ruber feet, I use spring feets to prevent noise transmission from Thingiverse https://www.thingiverse.com/thing:2773885)
 
 module CubicPattern(Xdim, Ydim)
 {
