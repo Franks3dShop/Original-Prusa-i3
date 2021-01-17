@@ -9,6 +9,7 @@
 //Chose the Raspberry Pi model, either 3 or 4 or 0 for the orginal Raspberry Pi Zero cut out.
 RaspberryType = 3; // 3 for Pi3 or 4 for Pi4 for the ports holes.
 
+DownOffset = 5; // To adjust in mm where the downward offset of the Raspberry Pi 3/4
 
 module CubicPattern(Xdim, Ydim)
 {
@@ -52,7 +53,7 @@ module main_body()
             cube( [ 118.5, 92 , 2 ] );  
         } else {
             // Longer for Raspberry Pi 3 added
-            cube( [ 118.5 + 66 , 92 , 2 ] );  
+            cube( [ 118.5 + 56 + DownOffset , 92 , 2 ] );  
         }
         
 
@@ -64,7 +65,7 @@ module main_body()
         if (RaspberryType == 0) {
             translate( [ 0 , 90 , 0 ] ) cube( [ 105.5 , 2 , 35 ] );  
         } else {
-            translate( [ 0 , 90 , 0 ] ) cube( [ 105.5 + 79, 2 , 35 ] );  
+            translate( [ 0 , 90 , 0 ] ) cube( [ 105.5 + 69 + DownOffset, 2 , 35 ] );  
         }         
 
         // upper panel frame reinforcement
@@ -154,7 +155,7 @@ module main_body()
             translate( [ 20 , 0 , 0 ] ) cube( [ 80 , 3 , 5 ] );  
         } else {
             // frame side panel Longer for Raspberry Pi 3/4
-            translate( [ 20 , 0 , 0 ] ) cube( [ 80 + 84.5 , 3 , 5 ] );  
+            translate( [ 20 , 0 , 0 ] ) cube( [ 80 + 74.5 + DownOffset , 3 , 5 ] );  
         }
         
         // Einsy mounting blocs
@@ -165,10 +166,10 @@ module main_body()
 
         if (RaspberryType != 0) {
             //Raspberry Pi 3/4 mounting blocs
-            translate( [ 130 , 8.5 , 1 ] ) cylinder( h = 7, r = 5, $fn=6); 
-            translate( [ 130 , 66.5 , 1 ] ) cylinder( h = 7, r = 5, $fn=6); 
-            translate( [ 179 , 8.5 , 1 ] ) cylinder( h = 7, r = 5, $fn=6); 
-            translate( [ 179 , 66.5 , 1 ] ) cylinder( h = 7, r = 5, $fn=6); 
+            translate( [ 120 + DownOffset , 8.5 , 1 ] ) cylinder( h = 7, r = 5, $fn=6); 
+            translate( [ 120 + DownOffset , 66.5 , 1 ] ) cylinder( h = 7, r = 5, $fn=6); 
+            translate( [ 169 + DownOffset , 8.5 , 1 ] ) cylinder( h = 7, r = 5, $fn=6); 
+            translate( [ 169 + DownOffset , 66.5 , 1 ] ) cylinder( h = 7, r = 5, $fn=6); 
         }        
 
         // corners reinforcement
@@ -347,17 +348,17 @@ module cutouts(){
 
     if (RaspberryType != 0) {
         //Raspberry Pi 3/4 M3 Screws
-        translate( [ 130 , 8.5 , -1 ] ) cylinder( h = 10, r = 1.9, $fn=30);  
-        translate( [ 130 , 66.5 , -1 ] ) cylinder( h = 10, r = 1.9, $fn=30);  
-        translate( [ 179 , 8.5 , -1 ] ) cylinder( h = 10, r = 1.9, $fn=30);  
-        translate( [ 179 , 66.5 , -1 ] ) cylinder( h = 10, r = 1.9, $fn=30);     
+        translate( [ 120 + DownOffset , 8.5 , -1 ] ) cylinder( h = 10, r = 1.9, $fn=30);  
+        translate( [ 120 + DownOffset , 66.5 , -1 ] ) cylinder( h = 10, r = 1.9, $fn=30);  
+        translate( [ 169 + DownOffset , 8.5 , -1 ] ) cylinder( h = 10, r = 1.9, $fn=30);  
+        translate( [ 169 + DownOffset , 66.5 , -1 ] ) cylinder( h = 10, r = 1.9, $fn=30);     
 
-        translate( [ 130 , 8.5 , 6 ] ) cylinder( h = 3, r1 = 1.9, r2=2.4, $fn=30);  
-        translate( [ 130 , 66.5 , 6 ] ) cylinder( h = 3, r1 = 1.9, r2=2.4, $fn=30);  
-        translate( [ 179 , 8.5 , 6 ] ) cylinder( h = 3, r1 = 1.9, r2=2.4, $fn=30);  
-        translate( [ 179 , 66.5 , 6 ] ) cylinder( h = 3, r1 = 1.9, r2=2.4, $fn=30);
+        translate( [ 120 + DownOffset , 8.5 , 6 ] ) cylinder( h = 3, r1 = 1.9, r2=2.4, $fn=30);  
+        translate( [ 120 + DownOffset , 66.5 , 6 ] ) cylinder( h = 3, r1 = 1.9, r2=2.4, $fn=30);  
+        translate( [ 169 + DownOffset , 8.5 , 6 ] ) cylinder( h = 3, r1 = 1.9, r2=2.4, $fn=30);  
+        translate( [ 169 + DownOffset , 66.5 , 6 ] ) cylinder( h = 3, r1 = 1.9, r2=2.4, $fn=30);
 
-        translate( [ 118.5 , 0 , 0 ] )ventilation_holes_pi();
+        translate( [ 108.5  + DownOffset, 0 , 0 ] )ventilation_holes_pi();
     }
     
     translate( [ 2 , 0 , 0 ] )ventilation_holes();   
@@ -393,20 +394,20 @@ module cutouts(){
 
     // Raspberry Pi 3 Ethernet
     if (RaspberryType == 3) {
-        translate( [ 164 , 89 , 9.5 ] ) cube( [ 16.3 , 5 , 14.2 ] );  
+        translate( [ 154 + DownOffset , 89 , 9.5 ] ) cube( [ 16.3 , 5 , 14.2 ] );  
         // Raspberry Pi 3 USB-1
-        translate( [ 146 , 89 , 9.5 ] ) cube( [ 15.3 , 5 , 16.5 ] );  
+        translate( [ 136 + DownOffset , 89 , 9.5 ] ) cube( [ 15.3 , 5 , 16.5 ] );  
         // Raspberry Pi 3 USB-2
-        translate( [ 128 , 89 , 9.5 ] ) cube( [ 15.3 , 5 , 16.5 ] );  
+        translate( [ 118 + DownOffset , 89 , 9.5 ] ) cube( [ 15.3 , 5 , 16.5 ] );  
     }
 
     // Raspberry Pi 4 Ethernet
     if (RaspberryType == 4) {
-        translate( [ 128 , 89 , 9.5 ] ) cube( [ 16.3 - 1.25 , 5 , 14.2 ] );  
+        translate( [ 118 + DownOffset , 89 , 9.5 ] ) cube( [ 16.3 - 1.25 , 5 , 14.2 ] );  
         // Raspberry Pi 4 USB-1
-        translate( [ 146 , 89 , 9.5 ] ) cube( [ 15.3 - 2, 5 , 16.5 ] );  
+        translate( [ 136 + DownOffset , 89 , 9.5 ] ) cube( [ 15.3 - 2, 5 , 16.5 ] );  
         // Raspberry Pi 4 USB-2
-        translate( [ 164 , 89 , 9.5 ] ) cube( [ 15.3 -1.25, 5 , 16.5 ] );  
+        translate( [ 154 + DownOffset , 89 , 9.5 ] ) cube( [ 15.3 -1.25, 5 , 16.5 ] );  
     }
     
 
@@ -452,38 +453,38 @@ module cutouts(){
 
     if (RaspberryType != 0) {
         // Raspberry Pi 3 nut traps HEX  
-        translate( [ 130 , 8.5 , -1 ] ){
+        translate( [ 120 + DownOffset , 8.5 , -1 ] ){
         cylinder( h = 4, r = 3.2, $fn=6);  
         rotate([0,0,0]) resize([0,2,0]) cylinder( h = 4, r = 3.5, $fn=6);  
         rotate([0,0,60]) resize([0,2,0]) cylinder( h = 4, r = 3.5, $fn=6);  
         rotate([0,0,120]) resize([0,2,0]) cylinder( h = 4, r = 3.5, $fn=6);  
         }
 
-        translate( [ 130 , 66.5 , -1 ] ){
+        translate( [ 120 + DownOffset , 66.5 , -1 ] ){
         cylinder( h = 4, r = 3.2, $fn=6);  
         rotate([0,0,0]) resize([0,2,0]) cylinder( h = 4, r = 3.5, $fn=6);  
         rotate([0,0,60]) resize([0,2,0]) cylinder( h = 4, r = 3.5, $fn=6);  
         rotate([0,0,120]) resize([0,2,0]) cylinder( h = 4, r = 3.5, $fn=6);  
         }
 
-        translate( [ 179 , 8.5 , -1 ] ){
+        translate( [ 169 + DownOffset , 8.5 , -1 ] ){
         cylinder( h = 4, r = 3.2, $fn=6);  
         rotate([0,0,0]) resize([0,2,0]) cylinder( h = 4, r = 3.5, $fn=6);  
         rotate([0,0,60]) resize([0,2,0]) cylinder( h = 4, r = 3.5, $fn=6);  
         rotate([0,0,120]) resize([0,2,0]) cylinder( h = 4, r = 3.5, $fn=6);  
         }
 
-        translate( [ 179 , 66.5 , -1 ] ){
+        translate( [ 169 + DownOffset , 66.5 , -1 ] ){
         cylinder( h = 4, r = 3.2, $fn=6);  
         rotate([0,0,0]) resize([0,2,0]) cylinder( h = 4, r = 3.5, $fn=6);  
         rotate([0,0,60]) resize([0,2,0]) cylinder( h = 4, r = 3.5, $fn=6);  
         rotate([0,0,120]) resize([0,2,0]) cylinder( h = 4, r = 3.5, $fn=6);  
         }
 
-        translate( [ 130 , 8.5 , -1 ] ) cylinder( h = 1.5, r1 = 6, r2=3.2, $fn=6);  
-        translate( [ 130 , 66.5 , -1 ] ) cylinder( h = 1.5, r1 = 6, r2=3.2, $fn=6);  
-        translate( [ 179 , 8.5 , -1 ] ) cylinder( h = 1.5, r1 = 6, r2=3.2, $fn=6);  
-        translate( [ 179 , 66.5 , -1 ] ) cylinder( h = 1.5, r1 = 6, r2=3.2, $fn=6);  
+        translate( [ 120 + DownOffset , 8.5 , -1 ] ) cylinder( h = 1.5, r1 = 6, r2=3.2, $fn=6);  
+        translate( [ 120 + DownOffset , 66.5 , -1 ] ) cylinder( h = 1.5, r1 = 6, r2=3.2, $fn=6);  
+        translate( [ 169 + DownOffset , 8.5 , -1 ] ) cylinder( h = 1.5, r1 = 6, r2=3.2, $fn=6);  
+        translate( [ 169 + DownOffset , 66.5 , -1 ] ) cylinder( h = 1.5, r1 = 6, r2=3.2, $fn=6);  
     }
 
     // door closing corners
@@ -784,22 +785,22 @@ difference()
     
     if (RaspberryType != 0) {    
         // bottom holes print supports Raspberri Pi 3
-        translate( [ 130 , 8.5 ,0] ){
+        translate( [ 120 + DownOffset , 8.5 ,0] ){
         translate( [ 0 , 0 , 2.5 ] ) cube([3.2,5.6,2], center=true);
         translate( [ 0 , 0 , 3 ] ) cube([3.2,3.8,2], center=true);
         }
 
-        translate( [ 130 , 66.5 ,0] ){
+        translate( [ 120 + DownOffset , 66.5 ,0] ){
         translate( [ 0 , 0 , 2.5 ] ) cube([3.2,5.6,2], center=true);
         translate( [ 0 , 0 , 3 ] ) cube([3.2,3.8,2], center=true);
         }
 
-        translate( [ 179 , 8.5 ,0] ){
+        translate( [ 169 + DownOffset , 8.5 ,0] ){
         translate( [ 0 , 0 , 2.5 ] ) cube([3.2,5.6,2], center=true);
         translate( [ 0 , 0 , 3 ] ) cube([3.2,3.8,2], center=true);
         }
 
-        translate( [ 179 , 66.5 ,0] ){
+        translate( [ 169 + DownOffset , 66.5 ,0] ){
         translate( [ 0 , 0 , 2.5 ] ) cube([3.2,5.6,2], center=true);
         translate( [ 0 , 0 , 3 ] ) cube([3.2,3.8,2], center=true);
         }
@@ -831,10 +832,10 @@ difference()
     }
     
     if (RaspberryType != 0) {    
-        translate([123,14,1.5]) rotate([0,0,90]) linear_extrude(height = 0.8) 
+        translate([120,14,1.5]) rotate([0,0,90]) linear_extrude(height = 0.8) 
         { text("FRANK'S 3D",font = "helvetica:style=Bold", size=6, center=true); }   
 
-        translate([133,14,1.5]) rotate([0,0,90]) linear_extrude(height = 0.8) 
+        translate([130,14,1.5]) rotate([0,0,90]) linear_extrude(height = 0.8) 
         { text("SHOP  MOD",font = "helvetica:style=Bold", size=6, center=true); }       
     }
 
