@@ -7,7 +7,7 @@
 
 
 //Chose the Raspberry Pi model, either 3 or 4 or 0 for the orginal Raspberry Pi Zero cut out.
-RaspberryType = 3; // 3 for Pi3 or 4 for Pi4 for the ports holes.
+RaspberryType = 4; // 3 for Pi3 or 4 for Pi4 for the ports holes.
 
 DownOffset = 5; // To adjust in mm where the downward offset of the Raspberry Pi 3/4 (5mm for original Prusa ruber feet, I use spring feets to prevent noise transmission from Thingiverse https://www.thingiverse.com/thing:2773885)
 
@@ -52,7 +52,7 @@ module main_body()
         if (RaspberryType == 0) {
             cube( [ 118.5, 92 , 2 ] );  
         } else {
-            // Longer for Raspberry Pi 3 added
+            // Longer for Raspberry Pi 3/4 added
             cube( [ 118.5 + 56 + DownOffset , 92 , 2 ] );  
         }
         
@@ -72,8 +72,12 @@ module main_body()
         translate( [ 0 , 0 , 1 ] ) cube( [ 5 , 7 , 34 ] );  
 
         // side panel reinforcement
-       translate( [ 0 , 0 , 1 ] ) cube( [ 9 , 92 , 3 ] );  
+        translate( [ 0 , 0 , 1 ] ) cube( [ 9 , 92 , 3 ] );  
         translate( [ 98 , 0 , 0 ] ) cube( [ 9 , 92 , 4 ] ); 
+
+        if (RaspberryType != 0) { // side panel reinforcement for Raspberry Pi 3/4
+            translate( [ 118.5 + 56 + DownOffset -9, 0 , 0 ] ) cube( [ 9 , 92 , 4 ] ); 
+        }         
         
         // 
         translate([21,81,0]) cylinder( h = 4.5, r = 2.5, $fn=30);   
@@ -145,6 +149,15 @@ module main_body()
             translate( [ 98 , 86 , 0 ] ) cube( [ 7.5 , 6 , 35 ] ); 
             translate( [ 96 , 79 , 0 ] ) rotate([0,0,45]) cube( [ 7.5 , 6 , 36 ] ); 
         }
+
+       if (RaspberryType != 0) {
+            difference()
+                {
+                    // bottom side reinforcement    
+                    translate( [ 118.5 + 56 + DownOffset - 2 , 76 , 0 ] ) cube( [ 2 , 16 , 35 ] ); 
+                }
+        }
+
         translate( [ 0 , 85 , 0 ] ) cube( [ 5.5 , 7 , 35 ] ); 
 
         // screw mounting block
@@ -564,10 +577,9 @@ module cutouts(){
         
         translate( [ 17.5 , 34.5 , -1] )  cube( [ 8 , 12 , 9] );
         translate( [ 13 , 34 , -1] )  cube( [ 5, 8 , 9] );     
-              
-       
+            }
+        }
   }
-  }}
 
 
 
@@ -757,10 +769,14 @@ difference()
         translate( [ 110.5, 33, -2 ] ) cylinder( h = 20, r = 2, $fn=30);  
     }           
     
-    // lightening slots
+    // Recessed inside bottom reinforcements
     translate( [ 100 ,21 , 2] ) cube( [ 5 , 48 , 5 ] );     
     translate( [ 3 ,21 , 2] ) cube( [ 4.5, 48 , 5 ] );     
 
+    if (RaspberryType != 0) { // Raspberri Pi 3/4 recessed inside bottom reinforcements
+        translate( [ 118.5 + 56 + DownOffset - 7 ,15 , 2] ) cube( [ 5 , 45 , 5 ] );     
+    }
+    
     // bottom holes print supports
     translate( [ 7.5 , 14 ,0] ){
     translate( [ 0 , 0 , 2.5 ] ) cube([3.2,5.6,2], center=true);
@@ -784,7 +800,7 @@ difference()
     
     
     if (RaspberryType != 0) {    
-        // bottom holes print supports Raspberri Pi 3
+        // bottom holes print supports Raspberri Pi 3/4
         translate( [ 120 + DownOffset , 8.5 ,0] ){
         translate( [ 0 , 0 , 2.5 ] ) cube([3.2,5.6,2], center=true);
         translate( [ 0 , 0 , 3 ] ) cube([3.2,3.8,2], center=true);
@@ -818,6 +834,7 @@ difference()
     translate([21+58,81,-5]) cylinder( h = 24, r = 0.8, $fn=30);   
 
 
+    // Raspberry Pi 3/4 USB + Ethernet Cutout
     if (RaspberryType == 0) {    
         translate([115,68,1.5]) rotate([0,0,90]) linear_extrude(height = 0.8) 
         { text("R3",font = "helvetica:style=Bold", size=6, center=true); }   
